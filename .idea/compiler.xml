@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Consumer" />
+        <module name="Produce" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="activeMQ_Consumer2" target="1.8" />
+      <module name="activeMQ_Consummer1" target="1.8" />
+      <module name="activeMQ_Produce1" target="1.8" />
+      <module name="activeMQ_Produce2" target="1.8" />
+      <module name="activeMQ_Queue_Consumer" target="1.8" />
+      <module name="activeMQ_Queue_Produce" target="1.8" />
+      <module name="Consumer" target="1.8" />
+      <module name="Consumer2" target="1.8" />
+      <module name="MQ" target="1.8" />
+      <module name="Produce" target="1.8" />
+      <module name="rabbitMQ_Consumer1" target="1.8" />
+      <module name="rabbitMQ_Consumer2" target="1.8" />
+      <module name="rabbitMQ_Produce1" target="1.8" />
+      <module name="rabbitMQ_Produce2" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Consumer" options="-parameters" />
+      <module name="Consumer2" options="-parameters" />
+      <module name="Produce" options="-parameters" />
+      <module name="activeMQ_Consumer2" options="-parameters" />
+      <module name="activeMQ_Consummer1" options="-parameters" />
+      <module name="activeMQ_Produce1" options="-parameters" />
+      <module name="activeMQ_Produce2" options="-parameters" />
+      <module name="activeMQ_Queue_Consumer" options="-parameters" />
+      <module name="activeMQ_Queue_Produce" options="-parameters" />
+      <module name="rabbitMQ_Consumer1" options="-parameters" />
+      <module name="rabbitMQ_Consumer2" options="-parameters" />
+      <module name="rabbitMQ_Produce1" options="-parameters" />
+      <module name="rabbitMQ_Produce2" options="-parameters" />
+    </option>
+  </component>
+</project>
