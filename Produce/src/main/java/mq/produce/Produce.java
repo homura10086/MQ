@@ -1,13 +1,16 @@
 package mq.produce;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.Topic;
@@ -25,6 +28,10 @@ public class Produce {
     private Topic topicMulti;
     @Resource
     private RabbitTemplate rabbitTemplate;
+    @Resource
+    KafkaTemplate<String, String> kafka;
+    @Resource
+    private RocketMQTemplate rocketMQTemplate;
 
     @GetMapping("/activeSingle")
     public void produceTopicSingle() throws JMSException {
@@ -60,5 +67,20 @@ public class Produce {
         messageProperties.setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT);
         Message message = new Message(msg.getBytes(), messageProperties);
         rabbitTemplate.send("X", "multi", message);
+    }
+
+    @GetMapping("/kafka")
+    public void data(){
+        // 通过kafka发送出去
+        log.info("当前时间: " + new Date() + "，发送一条消息给" + "kafka");
+        String msg = UUID.randomUUID() + "，消息来自：" + "kafka";
+        kafka.send("first", msg);
+    }
+
+    @GetMapping("/rocket")
+    public void sendMessage(){
+        log.info("当前时间: " + new Date() + "，发送一条消息给" + "rocketMQ");
+        String msg = UUID.randomUUID() + "，消息来自：" + "rocketMQ";
+        rocketMQTemplate.convertAndSend("topic", msg);
     }
 }

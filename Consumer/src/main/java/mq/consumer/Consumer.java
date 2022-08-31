@@ -1,16 +1,20 @@
 package mq.consumer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
+import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import javax.jms.TextMessage;
 
 @Component
 @Slf4j
-public class Consumer {
+@RocketMQMessageListener(consumerGroup = "springBootGroup", topic = "topic")
+public class Consumer implements RocketMQListener {
 
     final static String concurrency = "1";
 
@@ -104,5 +108,15 @@ public class Consumer {
     @RabbitListener(queues = "queueMulti8")
     public void receiveMsgMulti8(Message message){
         log.info("multi08接收到的消息为：" + new String(message.getBody()));
+    }
+
+    @KafkaListener(topics = "first")
+    public void consumerTopic(String msg){
+        log.info("kafka接收到的消息为：" + msg);
+    }
+
+    @Override
+    public void onMessage(Object message) {
+        log.info("rocketMQ接收到的消息为：" + message);
     }
 }

@@ -1,19 +1,21 @@
 server:
   port: 8081
 
-spring:
-  activemq:
-    #    设置消费者的预取值（非持久化topic默认32767）/是否开启批量延迟确认
-    #    broker-url: tcp://120.79.213.53:61616?jms.prefetchPolicy.all=100&jms.optimizeAcknowledge=true
-    #    broker-url: tcp://120.79.213.53:61616?jms.prefetchPolicy.all=100&jms.optimizeAcknowledge=true
-    #    broker-url: tcp://120.79.213.53:61616?jms.optimizeAcknowledge=true
-    #    broker-url: tcp://120.79.213.53:61616?jms.optimizeAcknowledge=false
-    #NIO协议
-    broker-url: nio://120.79.213.53:61616
-    #    broker-url: tcp://120.79.213.53:61616
-    user: admin
-    password: admin
+rocketmq:
+  producer:
+    group: springBootGroup
+  name-server: 120.79.213.53:9876
 
+spring:
+  kafka:
+    bootstrap-servers: 120.79.213.53:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: kafka
 
   rabbitmq:
     host: 120.79.213.53
@@ -28,17 +30,28 @@ spring:
       direct:
         acknowledge-mode: AUTO
         prefetch: 32767
-#        prefetch: 1
+      #        prefetch: 1
       simple:
         acknowledge-mode: AUTO
         consumer-batch-enabled: true    #开启批量消费
         batch-size: 32767                  #每次批量消费大小
         #每个监听器的初始（默认1）和最大线程数
-#        concurrency: 8
-#        max-concurrency: 8
+        #        concurrency: 8
+        #        max-concurrency: 8
         # 预取值
         prefetch: 32767
-#        prefetch: 1
+  #        prefetch: 1
 
+  activemq:
+    #    设置消费者的预取值（非持久化topic默认32767）/是否开启批量延迟确认
+    #    broker-url: tcp://120.79.213.53:61616?jms.prefetchPolicy.all=100&jms.optimizeAcknowledge=true
+    #    broker-url: tcp://120.79.213.53:61616?jms.prefetchPolicy.all=100&jms.optimizeAcknowledge=true
+    #    broker-url: tcp://120.79.213.53:61616?jms.optimizeAcknowledge=true
+    #    broker-url: tcp://120.79.213.53:61616?jms.optimizeAcknowledge=false
+    #NIO协议
+    broker-url: nio://120.79.213.53:61616
+    #    broker-url: tcp://120.79.213.53:61616
+    user: admin
+    password: admin
   jms:
     pub-sub-domain: true      #true：发布订阅，false：点对点
